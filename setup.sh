@@ -102,7 +102,7 @@ fi
 echo 'Do you want to install config file for ZSH ?'
 read -p '(y/n/uninstall): ' input_val
 if [ "${input_val}" = 'y' ]; then
-  install_file "${CURDIR}/zsh/zshrc" "${HOME}/.zshrc"
+  install_file "${CURDIR}/zsh/.zshrc" "${HOME}/.zshrc"
 elif [ "${input_val}" = 'uninstall' ]; then
   uninstall_file "${HOME}/.zshrc"
   uninstall_file "${HOME}/.zcompdump"
@@ -111,8 +111,8 @@ fi
 echo 'Do you want to install config file for Git ?'
 read -p '(y/n/uninstall): ' input_val
 if [ "${input_val}" = 'y' ]; then
-  install_file "${CURDIR}/git/gitconfig" "${HOME}/.gitconfig"
-  install_file "${CURDIR}/git/gitignore" "${HOME}/.gitignore"
+  install_file "${CURDIR}/git/.gitconfig" "${HOME}/.gitconfig"
+  install_file "${CURDIR}/git/.gitignore" "${HOME}/.gitignore"
 
   read -p 'Git user.name: ' input_val
   git config --global user.name "${input_val}"
@@ -126,7 +126,7 @@ fi
 echo 'Do you want to install config file for EditorConfig ?'
 read -p '(y/n/uninstall): ' input_val
 if [ "${input_val}" = 'y' ]; then
-  install_file "${CURDIR}/editorconfig/editorconfig" "${HOME}/.editorconfig"
+  install_file "${CURDIR}/editorconfig/.editorconfig" "${HOME}/.editorconfig"
 elif [ "${input_val}" = 'uninstall' ]; then
   uninstall_file "${HOME}/.editorconfig"
 fi
