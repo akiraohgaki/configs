@@ -1,0 +1,36 @@
+[user]
+name =
+email =
+
+[core]
+excludesfile = ~/.gitignore
+editor = nano
+filemode = false
+autocrlf = false
+
+[merge]
+ff = false
+
+[pull]
+ff = true
+
+[push]
+default = simple
+
+[color]
+ui = auto
+
+[url "git@github.com:"]
+insteadOf = github:
+pushInsteadOf = https://github.com/
+pushInsteadOf = git://github.com/
+
+[url "git@bitbucket.org:"]
+insteadOf = bitbucket:
+pushInsteadOf = https://bitbucket.org/
+pushInsteadOf = git://bitbucket.org/
+
+[url "git@gitlab.com:"]
+insteadOf = gitlab:
+pushInsteadOf = https://gitlab.com/
+pushInsteadOf = git://gitlab.com/

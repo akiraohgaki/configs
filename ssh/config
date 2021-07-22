@@ -1,0 +1,4 @@
+ServerAliveInterval 60
+
+Host ssh.dev.azure.com
+  PubkeyAcceptedKeyTypes=ssh-rsa
