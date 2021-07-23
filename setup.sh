@@ -127,7 +127,9 @@ if [ "${input_val}" = 'y' ]; then
   install_file "${CURDIR}/git/.gitconfig" "${HOME}/.gitconfig"
   install_file "${CURDIR}/git/.gitignore" "${HOME}/.gitignore"
 
+  echo '================================================'
   echo 'Enter your information for commits'
+  echo '================================================'
   read -p 'git config user.name: ' input_val
   git config --global user.name "${input_val}"
   read -p 'git config user.email: ' input_val
