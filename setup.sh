@@ -75,15 +75,22 @@ if [ "${1}" ]; then
   exit
 fi
 
+echo '================================================'
 echo 'Do you want to generate new SSH key ?'
-read -p '(y/n): ' input_val
+echo '================================================'
+read -p '[y/n]: ' input_val
+
 if [ "${input_val}" = 'y' ]; then
   ssh-keygen -t ed25519 -N '' -f "${CURDIR}/ssh/id_ed25519"
   ssh-keygen -t rsa -N '' -f "${CURDIR}/ssh/id_rsa"
 fi
 
-echo 'Do you want to install config file and keys for SSH ?'
-read -p '(y/n/uninstall): ' input_val
+echo '================================================'
+echo 'Do you want to install config file for SSH ?'
+echo '(also install/uninstall generated SSH keys)'
+echo '================================================'
+read -p '[y/n/uninstall]: ' input_val
+
 if [ "${input_val}" = 'y' ]; then
   install_file "${CURDIR}/ssh/config" "${HOME}/.ssh/config"
   install_file "${CURDIR}/ssh/id_ed25519" "${HOME}/.ssh/id_ed25519" 600
@@ -99,8 +106,11 @@ elif [ "${input_val}" = 'uninstall' ]; then
   uninstall_file "${HOME}/.ssh/id_rsa.pub"
 fi
 
+echo '================================================'
 echo 'Do you want to install config file for ZSH ?'
-read -p '(y/n/uninstall): ' input_val
+echo '================================================'
+read -p '[y/n/uninstall]: ' input_val
+
 if [ "${input_val}" = 'y' ]; then
   install_file "${CURDIR}/zsh/.zshrc" "${HOME}/.zshrc"
 elif [ "${input_val}" = 'uninstall' ]; then
@@ -108,31 +118,41 @@ elif [ "${input_val}" = 'uninstall' ]; then
   uninstall_file "${HOME}/.zcompdump"
 fi
 
+echo '================================================'
 echo 'Do you want to install config file for Git ?'
-read -p '(y/n/uninstall): ' input_val
+echo '================================================'
+read -p '[y/n/uninstall]: ' input_val
+
 if [ "${input_val}" = 'y' ]; then
   install_file "${CURDIR}/git/.gitconfig" "${HOME}/.gitconfig"
   install_file "${CURDIR}/git/.gitignore" "${HOME}/.gitignore"
 
-  read -p 'Git user.name: ' input_val
+  echo 'Enter your information for commits'
+  read -p 'git config user.name: ' input_val
   git config --global user.name "${input_val}"
-  read -p 'Git user.email: ' input_val
+  read -p 'git config user.email: ' input_val
   git config --global user.email "${input_val}"
 elif [ "${input_val}" = 'uninstall' ]; then
   uninstall_file "${HOME}/.gitconfig"
   uninstall_file "${HOME}/.gitignore"
 fi
 
+echo '================================================'
 echo 'Do you want to install config file for EditorConfig ?'
-read -p '(y/n/uninstall): ' input_val
+echo '================================================'
+read -p '[y/n/uninstall]: ' input_val
+
 if [ "${input_val}" = 'y' ]; then
   install_file "${CURDIR}/editorconfig/.editorconfig" "${HOME}/.editorconfig"
 elif [ "${input_val}" = 'uninstall' ]; then
   uninstall_file "${HOME}/.editorconfig"
 fi
 
+echo '================================================'
 echo 'Do you want to install UbuntuMono fonts ?'
-read -p '(y/n/uninstall): ' input_val
+echo '================================================'
+read -p '[y/n/uninstall]: ' input_val
+
 if [ "${input_val}" = 'y' ]; then
   install_file "${CURDIR}/fonts/UbuntuMono-B.ttf" "${FONTS_DIR}/UbuntuMono-B.ttf"
   install_file "${CURDIR}/fonts/UbuntuMono-BI.ttf" "${FONTS_DIR}/UbuntuMono-BI.ttf"
@@ -145,8 +165,11 @@ elif [ "${input_val}" = 'uninstall' ]; then
   uninstall_file "${FONTS_DIR}/UbuntuMono-RI.ttf"
 fi
 
+echo '================================================'
 echo 'Do you want to install Node.js with n ?'
-read -p '(y/n/uninstall): ' input_val
+echo '================================================'
+read -p '[y/n/uninstall]: ' input_val
+
 if [ "${input_val}" = 'y' ]; then
   sudo bash "${0}" install_nodejs
 elif [ "${input_val}" = 'uninstall' ]; then
