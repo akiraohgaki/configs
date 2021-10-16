@@ -151,6 +151,17 @@ elif [ "${input_val}" = 'uninstall' ]; then
 fi
 
 echo '================================================'
+echo 'Do you want to install config file for Prettier ?'
+echo '================================================'
+read -p '[y/n/uninstall]: ' input_val
+
+if [ "${input_val}" = 'y' ]; then
+  install_file "${CURDIR}/prettier/.prettierrc.json" "${HOME}/.prettierrc.json"
+elif [ "${input_val}" = 'uninstall' ]; then
+  uninstall_file "${HOME}/.prettierrc.json"
+fi
+
+echo '================================================'
 echo 'Do you want to install UbuntuMono fonts ?'
 echo '================================================'
 read -p '[y/n/uninstall]: ' input_val
