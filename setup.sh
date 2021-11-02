@@ -75,6 +75,7 @@ if [ "${1}" ]; then
   exit
 fi
 
+echo ''
 echo '================================================'
 echo 'Do you want to generate new SSH key ?'
 echo '================================================'
@@ -85,6 +86,7 @@ if [ "${input_val}" = 'y' ]; then
   ssh-keygen -t rsa -N '' -f "${CURDIR}/ssh/id_rsa"
 fi
 
+echo ''
 echo '================================================'
 echo 'Do you want to install config file for SSH ?'
 echo '(also install/uninstall generated SSH keys)'
@@ -106,6 +108,7 @@ elif [ "${input_val}" = 'uninstall' ]; then
   uninstall_file "${HOME}/.ssh/id_rsa.pub"
 fi
 
+echo ''
 echo '================================================'
 echo 'Do you want to install config file for ZSH ?'
 echo '================================================'
@@ -118,6 +121,7 @@ elif [ "${input_val}" = 'uninstall' ]; then
   uninstall_file "${HOME}/.zcompdump"
 fi
 
+echo ''
 echo '================================================'
 echo 'Do you want to install config file for Git ?'
 echo '================================================'
@@ -127,6 +131,7 @@ if [ "${input_val}" = 'y' ]; then
   install_file "${CURDIR}/git/.gitconfig" "${HOME}/.gitconfig"
   install_file "${CURDIR}/git/.gitignore" "${HOME}/.gitignore"
 
+  echo ''
   echo '================================================'
   echo 'Enter your information for commits'
   echo '================================================'
@@ -139,6 +144,7 @@ elif [ "${input_val}" = 'uninstall' ]; then
   uninstall_file "${HOME}/.gitignore"
 fi
 
+echo ''
 echo '================================================'
 echo 'Do you want to install config file for EditorConfig ?'
 echo '================================================'
@@ -150,6 +156,7 @@ elif [ "${input_val}" = 'uninstall' ]; then
   uninstall_file "${HOME}/.editorconfig"
 fi
 
+echo ''
 echo '================================================'
 echo 'Do you want to install config file for Prettier ?'
 echo '================================================'
@@ -161,23 +168,34 @@ elif [ "${input_val}" = 'uninstall' ]; then
   uninstall_file "${HOME}/.prettierrc.json"
 fi
 
+echo ''
 echo '================================================'
-echo 'Do you want to install UbuntuMono fonts ?'
+echo 'Do you want to install additional fonts ?'
+echo '(Cousine, UbuntuMono)'
 echo '================================================'
 read -p '[y/n/uninstall]: ' input_val
 
 if [ "${input_val}" = 'y' ]; then
+  install_file "${CURDIR}/fonts/Cousine-Bold.ttf" "${FONTS_DIR}/Cousine-Bold.ttf"
+  install_file "${CURDIR}/fonts/Cousine-BoldItalic.ttf" "${FONTS_DIR}/Cousine-BoldItalic.ttf"
+  install_file "${CURDIR}/fonts/Cousine-Regular.ttf" "${FONTS_DIR}/Cousine-Regular.ttf"
+  install_file "${CURDIR}/fonts/Cousine-Italic.ttf" "${FONTS_DIR}/Cousine-Italic.ttf"
   install_file "${CURDIR}/fonts/UbuntuMono-B.ttf" "${FONTS_DIR}/UbuntuMono-B.ttf"
   install_file "${CURDIR}/fonts/UbuntuMono-BI.ttf" "${FONTS_DIR}/UbuntuMono-BI.ttf"
   install_file "${CURDIR}/fonts/UbuntuMono-R.ttf" "${FONTS_DIR}/UbuntuMono-R.ttf"
   install_file "${CURDIR}/fonts/UbuntuMono-RI.ttf" "${FONTS_DIR}/UbuntuMono-RI.ttf"
 elif [ "${input_val}" = 'uninstall' ]; then
+  uninstall_file "${FONTS_DIR}/Cousine-Bold.ttf"
+  uninstall_file "${FONTS_DIR}/Cousine-BoldItalic.ttf"
+  uninstall_file "${FONTS_DIR}/Cousine-Regular.ttf"
+  uninstall_file "${FONTS_DIR}/Cousine-Italic.ttf"
   uninstall_file "${FONTS_DIR}/UbuntuMono-B.ttf"
   uninstall_file "${FONTS_DIR}/UbuntuMono-BI.ttf"
   uninstall_file "${FONTS_DIR}/UbuntuMono-R.ttf"
   uninstall_file "${FONTS_DIR}/UbuntuMono-RI.ttf"
 fi
 
+echo ''
 echo '================================================'
 echo 'Do you want to install Node.js with n ?'
 echo '================================================'
