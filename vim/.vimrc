@@ -2,10 +2,10 @@
 function InitPlug() abort
   call plug#begin('~/.vim/plugged')
   Plug 'editorconfig/editorconfig-vim'
-  Plug 'prabirshrestha/vim-lsp'
-  Plug 'mattn/vim-lsp-settings'
   Plug 'prabirshrestha/asyncomplete.vim'
+  Plug 'prabirshrestha/vim-lsp'
   Plug 'prabirshrestha/asyncomplete-lsp.vim'
+  Plug 'mattn/vim-lsp-settings'
   call plug#end()
 endfunction
 
