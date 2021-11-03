@@ -197,6 +197,18 @@ fi
 
 echo ''
 echo '================================================'
+echo 'Do you want to install config file for Vim ?'
+echo '================================================'
+read -p '[y/n/uninstall]: ' input_val
+
+if [ "${input_val}" = 'y' ]; then
+  install_file "${CURDIR}/vim/.vimrc" "${HOME}/.vimrc"
+elif [ "${input_val}" = 'uninstall' ]; then
+  uninstall_file "${HOME}/.vimrc"
+fi
+
+echo ''
+echo '================================================'
 echo 'Do you want to install Node.js with n ?'
 echo '================================================'
 read -p '[y/n/uninstall]: ' input_val
