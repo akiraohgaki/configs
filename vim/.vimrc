@@ -1,6 +1,10 @@
 " vim-plug
 function InitPlug() abort
   call plug#begin('~/.vim/plugged')
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+  "Plug 'tpope/vim-fugitiv'
+  Plug 'airblade/vim-gitgutter'
   Plug 'editorconfig/editorconfig-vim'
   Plug 'prabirshrestha/asyncomplete.vim'
   Plug 'prabirshrestha/vim-lsp'
@@ -52,3 +56,9 @@ set incsearch
 set wrapscan
 set hlsearch
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
+
+" vim-airline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme = 'simple'
+nmap <C-p> <Plug>AirlineSelectPrevTab
+nmap <C-n> <Plug>AirlineSelectNextTab
