@@ -3,7 +3,7 @@ function InitPlug() abort
   call plug#begin('~/.vim/plugged')
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
-  "Plug 'tpope/vim-fugitiv'
+  Plug 'tpope/vim-fugitive'
   Plug 'airblade/vim-gitgutter'
   Plug 'editorconfig/editorconfig-vim'
   Plug 'prabirshrestha/asyncomplete.vim'
