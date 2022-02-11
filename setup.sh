@@ -250,3 +250,28 @@ if [ "${input_val}" = 'y' ]; then
 elif [ "${input_val}" = 'uninstall' ]; then
   sudo bash "${0}" uninstall_nodejs
 fi
+
+if [ "$(which npm)" ]; then
+  echo ''
+  echo '================================================'
+  echo 'Do you want to install additional NPM packages ?'
+  echo "(will be installed in $(npm root -g))"
+  echo '================================================'
+  read -p '[y/n/uninstall]: ' input_val
+
+  if [ "${input_val}" = 'y' ]; then
+    sudo npm install \
+      typescript nodemon @types/node \
+      prettier eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin \
+      react react-dom @types/react @types/react-dom eslint-plugin-react eslint-plugin-react-hooks \
+      jest jest-junit \
+      -g
+  elif [ "${input_val}" = 'uninstall' ]; then
+    sudo npm uninstall \
+      typescript nodemon @types/node \
+      prettier eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin \
+      react react-dom @types/react @types/react-dom eslint-plugin-react eslint-plugin-react-hooks \
+      jest jest-junit \
+      -g
+  fi
+fi
