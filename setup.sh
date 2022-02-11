@@ -4,6 +4,8 @@ CURDIR="$(cd "$(dirname "${0}")" && pwd)"
 
 PREFIX='/usr/local'
 
+PROJECTS_DIR="${HOME}/Projects"
+
 #CONFIG_DIR=''
 FONTS_DIR=''
 if [ "$(echo ${OSTYPE} | grep 'linux')" ]; then
@@ -78,39 +80,38 @@ fi
 echo ''
 echo '================================================'
 echo 'Do you want to generate new SSH key ?'
+echo "(will be installed in ${HOME}/.ssh)"
 echo '================================================'
 read -p '[y/n]: ' input_val
 
 if [ "${input_val}" = 'y' ]; then
   ssh-keygen -t ed25519 -N '' -f "${CURDIR}/ssh/id_ed25519"
   ssh-keygen -t rsa -N '' -f "${CURDIR}/ssh/id_rsa"
-fi
-
-echo ''
-echo '================================================'
-echo 'Do you want to install config file for SSH ?'
-echo '(also install/uninstall generated SSH keys)'
-echo '================================================'
-read -p '[y/n/uninstall]: ' input_val
-
-if [ "${input_val}" = 'y' ]; then
-  install_file "${CURDIR}/ssh/config" "${HOME}/.ssh/config"
   install_file "${CURDIR}/ssh/id_ed25519" "${HOME}/.ssh/id_ed25519" 600
   install_file "${CURDIR}/ssh/id_ed25519.pub" "${HOME}/.ssh/id_ed25519.pub"
   install_file "${CURDIR}/ssh/id_rsa" "${HOME}/.ssh/id_rsa" 600
   install_file "${CURDIR}/ssh/id_rsa.pub" "${HOME}/.ssh/id_rsa.pub"
   chmod 700 "${HOME}/.ssh"
+fi
+
+echo ''
+echo '================================================'
+echo 'Do you want to install config file for SSH ?'
+echo "(will be installed in ${HOME}/.ssh)"
+echo '================================================'
+read -p '[y/n/uninstall]: ' input_val
+
+if [ "${input_val}" = 'y' ]; then
+  install_file "${CURDIR}/ssh/config" "${HOME}/.ssh/config"
+  chmod 700 "${HOME}/.ssh"
 elif [ "${input_val}" = 'uninstall' ]; then
   uninstall_file "${HOME}/.ssh/config"
-  uninstall_file "${HOME}/.ssh/id_ed25519"
-  uninstall_file "${HOME}/.ssh/id_ed25519.pub"
-  uninstall_file "${HOME}/.ssh/id_rsa"
-  uninstall_file "${HOME}/.ssh/id_rsa.pub"
 fi
 
 echo ''
 echo '================================================'
 echo 'Do you want to install config file for ZSH ?'
+echo "(will be installed in ${HOME})"
 echo '================================================'
 read -p '[y/n/uninstall]: ' input_val
 
@@ -124,6 +125,7 @@ fi
 echo ''
 echo '================================================'
 echo 'Do you want to install config file for Git ?'
+echo "(will be installed in ${HOME})"
 echo '================================================'
 read -p '[y/n/uninstall]: ' input_val
 
@@ -133,11 +135,11 @@ if [ "${input_val}" = 'y' ]; then
 
   echo ''
   echo '================================================'
-  echo 'Enter your information for commits'
+  echo 'Enter your name and email for Git commits'
   echo '================================================'
-  read -p 'git config user.name: ' input_val
+  read -p 'Your Name: ' input_val
   git config --global user.name "${input_val}"
-  read -p 'git config user.email: ' input_val
+  read -p 'Your Email: ' input_val
   git config --global user.email "${input_val}"
 elif [ "${input_val}" = 'uninstall' ]; then
   uninstall_file "${HOME}/.gitconfig"
@@ -146,32 +148,73 @@ fi
 
 echo ''
 echo '================================================'
-echo 'Do you want to install config file for EditorConfig ?'
+echo 'Do you want to install config file for Vim ?'
+echo "(will be installed in ${HOME})"
 echo '================================================'
 read -p '[y/n/uninstall]: ' input_val
 
 if [ "${input_val}" = 'y' ]; then
-  install_file "${CURDIR}/editorconfig/.editorconfig" "${HOME}/.editorconfig"
+  install_file "${CURDIR}/vim/.vimrc" "${HOME}/.vimrc"
 elif [ "${input_val}" = 'uninstall' ]; then
-  uninstall_file "${HOME}/.editorconfig"
+  uninstall_file "${HOME}/.vimrc"
+fi
+
+echo ''
+echo '================================================'
+echo 'Do you want to install config file for EditorConfig ?'
+echo "(will be installed in ${PROJECTS_DIR})"
+echo '================================================'
+read -p '[y/n/uninstall]: ' input_val
+
+if [ "${input_val}" = 'y' ]; then
+  install_file "${CURDIR}/editorconfig/.editorconfig" "${PROJECTS_DIR}/.editorconfig"
+elif [ "${input_val}" = 'uninstall' ]; then
+  uninstall_file "${PROJECTS_DIR}/.editorconfig"
 fi
 
 echo ''
 echo '================================================'
 echo 'Do you want to install config file for Prettier ?'
+echo "(will be installed in ${PROJECTS_DIR})"
 echo '================================================'
 read -p '[y/n/uninstall]: ' input_val
 
 if [ "${input_val}" = 'y' ]; then
-  install_file "${CURDIR}/prettier/.prettierrc.json" "${HOME}/.prettierrc.json"
+  install_file "${CURDIR}/prettier/.prettierrc.json" "${PROJECTS_DIR}/.prettierrc.json"
 elif [ "${input_val}" = 'uninstall' ]; then
-  uninstall_file "${HOME}/.prettierrc.json"
+  uninstall_file "${PROJECTS_DIR}/.prettierrc.json"
+fi
+
+echo ''
+echo '================================================'
+echo 'Do you want to install config file for ESLint ?'
+echo "(will be installed in ${PROJECTS_DIR})"
+echo '================================================'
+read -p '[y/n/uninstall]: ' input_val
+
+if [ "${input_val}" = 'y' ]; then
+  install_file "${CURDIR}/eslint/.eslintrc.json" "${PROJECTS_DIR}/.eslintrc.json"
+elif [ "${input_val}" = 'uninstall' ]; then
+  uninstall_file "${PROJECTS_DIR}/.eslintrc.json"
+fi
+
+echo ''
+echo '================================================'
+echo 'Do you want to install config file for TypeScript ?'
+echo "(will be installed in ${PROJECTS_DIR})"
+echo '================================================'
+read -p '[y/n/uninstall]: ' input_val
+
+if [ "${input_val}" = 'y' ]; then
+  install_file "${CURDIR}/typescript/tsconfig.json" "${PROJECTS_DIR}/tsconfig.json"
+elif [ "${input_val}" = 'uninstall' ]; then
+  uninstall_file "${PROJECTS_DIR}/tsconfig.json"
 fi
 
 echo ''
 echo '================================================'
 echo 'Do you want to install additional fonts ?'
-echo '(Cousine, UbuntuMono)'
+echo "(will be installed in ${FONTS_DIR})"
 echo '================================================'
 read -p '[y/n/uninstall]: ' input_val
 
@@ -197,19 +240,8 @@ fi
 
 echo ''
 echo '================================================'
-echo 'Do you want to install config file for Vim ?'
-echo '================================================'
-read -p '[y/n/uninstall]: ' input_val
-
-if [ "${input_val}" = 'y' ]; then
-  install_file "${CURDIR}/vim/.vimrc" "${HOME}/.vimrc"
-elif [ "${input_val}" = 'uninstall' ]; then
-  uninstall_file "${HOME}/.vimrc"
-fi
-
-echo ''
-echo '================================================'
 echo 'Do you want to install Node.js with n ?'
+echo "(will be installed in ${PREFIX}/bin)"
 echo '================================================'
 read -p '[y/n/uninstall]: ' input_val
 
