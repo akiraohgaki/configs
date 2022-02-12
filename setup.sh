@@ -266,6 +266,8 @@ if [ "$(which npm)" ]; then
       react react-dom @types/react @types/react-dom eslint-plugin-react eslint-plugin-react-hooks \
       jest jest-junit \
       -g
+    sudo chown -R "${UID}" "${HOME}/.npm"
+    sudo chown -R "${UID}" "${HOME}/.config"
   elif [ "${input_val}" = 'uninstall' ]; then
     sudo npm uninstall \
       typescript nodemon @types/node \
