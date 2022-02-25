@@ -261,8 +261,10 @@ if [ "$(which npm)" ]; then
 
   if [ "${input_val}" = 'y' ]; then
     sudo npm install \
-      typescript nodemon @types/node \
-      prettier eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin \
+      typescript @types/node \
+      nodemon \
+      prettier \
+      eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin \
       react react-dom @types/react @types/react-dom eslint-plugin-react eslint-plugin-react-hooks \
       jest jest-junit \
       -g
@@ -270,8 +272,10 @@ if [ "$(which npm)" ]; then
     sudo chown -R "${USER}" "${HOME}/.config"
   elif [ "${input_val}" = 'uninstall' ]; then
     sudo npm uninstall \
-      typescript nodemon @types/node \
-      prettier eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin \
+      typescript @types/node \
+      nodemon \
+      prettier \
+      eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin \
       react react-dom @types/react @types/react-dom eslint-plugin-react eslint-plugin-react-hooks \
       jest jest-junit \
       -g
