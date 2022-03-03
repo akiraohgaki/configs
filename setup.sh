@@ -261,6 +261,7 @@ if [ "$(which npm)" ]; then
 
   if [ "${input_val}" = 'y' ]; then
     sudo npm install \
+      yarn \
       typescript @types/node \
       nodemon \
       prettier \
@@ -272,6 +273,7 @@ if [ "$(which npm)" ]; then
     sudo chown -R "${USER}" "${HOME}/.config"
   elif [ "${input_val}" = 'uninstall' ]; then
     sudo npm uninstall \
+      yarn \
       typescript @types/node \
       nodemon \
       prettier \
