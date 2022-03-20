@@ -45,7 +45,7 @@ install_file_url() {
   file_mode=${3:-644}
 
   resolve_parent_dir "${dest_path}"
-  curl -L "${src_url}" -o "${dest_path}"
+  curl -fsSL "${src_url}" -o "${dest_path}"
   chmod ${file_mode} "${dest_path}"
 
   echo "Installed: ${dest_path}"
@@ -70,6 +70,14 @@ uninstall_nodejs() {
   n uninstall
   rm -rf /usr/local/n
   uninstall_file "${PREFIX}/bin/n"
+}
+
+install_deno() {
+  curl -fsSL https://deno.land/x/install/install.sh | DENO_INSTALL="${PREFIX}" sh
+}
+
+uninstall_deno() {
+  uninstall_file "${PREFIX}/bin/deno"
 }
 
 if [ "${1}" ]; then
@@ -282,4 +290,17 @@ if [ "$(which npm)" ]; then
       jest jest-junit \
       -g
   fi
+fi
+
+echo ''
+echo '================================================'
+echo 'Do you want to install Deno ?'
+echo "(will be installed in ${PREFIX}/bin)"
+echo '================================================'
+read -p '[y/n/uninstall]: ' input_val
+
+if [ "${input_val}" = 'y' ]; then
+  sudo bash "${0}" install_deno
+elif [ "${input_val}" = 'uninstall' ]; then
+  sudo bash "${0}" uninstall_deno
 fi
