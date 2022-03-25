@@ -170,14 +170,14 @@ fi
 echo ''
 echo '================================================'
 echo 'Do you want to install config file for EditorConfig ?'
-echo "(will be installed in ${PROJECTS_DIR})"
+echo "(will be installed in ${HOME})"
 echo '================================================'
 read -p '[y/n/uninstall]: ' input_val
 
 if [ "${input_val}" = 'y' ]; then
-  install_file "${CURDIR}/editorconfig/.editorconfig" "${PROJECTS_DIR}/.editorconfig"
+  install_file "${CURDIR}/editorconfig/.editorconfig" "${HOME}/.editorconfig"
 elif [ "${input_val}" = 'uninstall' ]; then
-  uninstall_file "${PROJECTS_DIR}/.editorconfig"
+  uninstall_file "${HOME}/.editorconfig"
 fi
 
 echo ''
