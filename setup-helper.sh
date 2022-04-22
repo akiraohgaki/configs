@@ -61,6 +61,14 @@ uninstall_file() {
   fi
 }
 
+install_deno() {
+  curl -fsSL https://deno.land/x/install/install.sh | DENO_INSTALL="${PREFIX}" sh
+}
+
+uninstall_deno() {
+  uninstall_file "${PREFIX}/bin/deno"
+}
+
 install_nodejs() {
   install_file_url https://raw.githubusercontent.com/tj/n/master/bin/n "${PREFIX}/bin/n" 755
   n lts
@@ -72,17 +80,68 @@ uninstall_nodejs() {
   uninstall_file "${PREFIX}/bin/n"
 }
 
-install_deno() {
-  curl -fsSL https://deno.land/x/install/install.sh | DENO_INSTALL="${PREFIX}" sh
-}
-
-uninstall_deno() {
-  uninstall_file "${PREFIX}/bin/deno"
-}
-
 if [ "${1}" ]; then
   "${1}"
   exit
+fi
+
+echo ''
+echo '================================================'
+echo 'Do you want to install Deno ?'
+echo "(will be installed in ${PREFIX}/bin)"
+echo '================================================'
+read -p '[y/n/uninstall]: ' input_val
+
+if [ "${input_val}" = 'y' ]; then
+  sudo bash "${0}" install_deno
+elif [ "${input_val}" = 'uninstall' ]; then
+  sudo bash "${0}" uninstall_deno
+fi
+
+echo ''
+echo '================================================'
+echo 'Do you want to install Node.js with n ?'
+echo "(will be installed in ${PREFIX}/bin)"
+echo '================================================'
+read -p '[y/n/uninstall]: ' input_val
+
+if [ "${input_val}" = 'y' ]; then
+  sudo bash "${0}" install_nodejs
+elif [ "${input_val}" = 'uninstall' ]; then
+  sudo bash "${0}" uninstall_nodejs
+fi
+
+if [ "$(which npm)" ]; then
+  echo ''
+  echo '================================================'
+  echo 'Do you want to install additional NPM packages ?'
+  echo "(will be installed in $(npm root -g))"
+  echo '================================================'
+  read -p '[y/n/uninstall]: ' input_val
+
+  if [ "${input_val}" = 'y' ]; then
+    sudo npm install \
+      yarn \
+      typescript @types/node \
+      nodemon \
+      prettier \
+      eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin \
+      react react-dom @types/react @types/react-dom eslint-plugin-react eslint-plugin-react-hooks \
+      jest jest-junit \
+      -g
+    sudo chown -R "${USER}" "${HOME}/.npm"
+    sudo chown -R "${USER}" "${HOME}/.config"
+  elif [ "${input_val}" = 'uninstall' ]; then
+    sudo npm uninstall \
+      yarn \
+      typescript @types/node \
+      nodemon \
+      prettier \
+      eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin \
+      react react-dom @types/react @types/react-dom eslint-plugin-react eslint-plugin-react-hooks \
+      jest jest-junit \
+      -g
+  fi
 fi
 
 echo ''
@@ -182,6 +241,33 @@ fi
 
 echo ''
 echo '================================================'
+echo 'Do you want to install additional fonts ?'
+echo "(will be installed in ${FONTS_DIR})"
+echo '================================================'
+read -p '[y/n/uninstall]: ' input_val
+
+if [ "${input_val}" = 'y' ]; then
+  install_file "${CURDIR}/fonts/Cousine-Bold.ttf" "${FONTS_DIR}/Cousine-Bold.ttf"
+  install_file "${CURDIR}/fonts/Cousine-BoldItalic.ttf" "${FONTS_DIR}/Cousine-BoldItalic.ttf"
+  install_file "${CURDIR}/fonts/Cousine-Regular.ttf" "${FONTS_DIR}/Cousine-Regular.ttf"
+  install_file "${CURDIR}/fonts/Cousine-Italic.ttf" "${FONTS_DIR}/Cousine-Italic.ttf"
+  install_file "${CURDIR}/fonts/UbuntuMono-B.ttf" "${FONTS_DIR}/UbuntuMono-B.ttf"
+  install_file "${CURDIR}/fonts/UbuntuMono-BI.ttf" "${FONTS_DIR}/UbuntuMono-BI.ttf"
+  install_file "${CURDIR}/fonts/UbuntuMono-R.ttf" "${FONTS_DIR}/UbuntuMono-R.ttf"
+  install_file "${CURDIR}/fonts/UbuntuMono-RI.ttf" "${FONTS_DIR}/UbuntuMono-RI.ttf"
+elif [ "${input_val}" = 'uninstall' ]; then
+  uninstall_file "${FONTS_DIR}/Cousine-Bold.ttf"
+  uninstall_file "${FONTS_DIR}/Cousine-BoldItalic.ttf"
+  uninstall_file "${FONTS_DIR}/Cousine-Regular.ttf"
+  uninstall_file "${FONTS_DIR}/Cousine-Italic.ttf"
+  uninstall_file "${FONTS_DIR}/UbuntuMono-B.ttf"
+  uninstall_file "${FONTS_DIR}/UbuntuMono-BI.ttf"
+  uninstall_file "${FONTS_DIR}/UbuntuMono-R.ttf"
+  uninstall_file "${FONTS_DIR}/UbuntuMono-RI.ttf"
+fi
+
+echo ''
+echo '================================================'
 echo 'Do you want to install config file for Prettier ?'
 echo "(will be installed in ${PROJECTS_DIR})"
 echo '================================================'
@@ -217,90 +303,4 @@ if [ "${input_val}" = 'y' ]; then
   install_file "${CURDIR}/typescript/tsconfig.json" "${PROJECTS_DIR}/tsconfig.json"
 elif [ "${input_val}" = 'uninstall' ]; then
   uninstall_file "${PROJECTS_DIR}/tsconfig.json"
-fi
-
-echo ''
-echo '================================================'
-echo 'Do you want to install additional fonts ?'
-echo "(will be installed in ${FONTS_DIR})"
-echo '================================================'
-read -p '[y/n/uninstall]: ' input_val
-
-if [ "${input_val}" = 'y' ]; then
-  install_file "${CURDIR}/fonts/Cousine-Bold.ttf" "${FONTS_DIR}/Cousine-Bold.ttf"
-  install_file "${CURDIR}/fonts/Cousine-BoldItalic.ttf" "${FONTS_DIR}/Cousine-BoldItalic.ttf"
-  install_file "${CURDIR}/fonts/Cousine-Regular.ttf" "${FONTS_DIR}/Cousine-Regular.ttf"
-  install_file "${CURDIR}/fonts/Cousine-Italic.ttf" "${FONTS_DIR}/Cousine-Italic.ttf"
-  install_file "${CURDIR}/fonts/UbuntuMono-B.ttf" "${FONTS_DIR}/UbuntuMono-B.ttf"
-  install_file "${CURDIR}/fonts/UbuntuMono-BI.ttf" "${FONTS_DIR}/UbuntuMono-BI.ttf"
-  install_file "${CURDIR}/fonts/UbuntuMono-R.ttf" "${FONTS_DIR}/UbuntuMono-R.ttf"
-  install_file "${CURDIR}/fonts/UbuntuMono-RI.ttf" "${FONTS_DIR}/UbuntuMono-RI.ttf"
-elif [ "${input_val}" = 'uninstall' ]; then
-  uninstall_file "${FONTS_DIR}/Cousine-Bold.ttf"
-  uninstall_file "${FONTS_DIR}/Cousine-BoldItalic.ttf"
-  uninstall_file "${FONTS_DIR}/Cousine-Regular.ttf"
-  uninstall_file "${FONTS_DIR}/Cousine-Italic.ttf"
-  uninstall_file "${FONTS_DIR}/UbuntuMono-B.ttf"
-  uninstall_file "${FONTS_DIR}/UbuntuMono-BI.ttf"
-  uninstall_file "${FONTS_DIR}/UbuntuMono-R.ttf"
-  uninstall_file "${FONTS_DIR}/UbuntuMono-RI.ttf"
-fi
-
-echo ''
-echo '================================================'
-echo 'Do you want to install Node.js with n ?'
-echo "(will be installed in ${PREFIX}/bin)"
-echo '================================================'
-read -p '[y/n/uninstall]: ' input_val
-
-if [ "${input_val}" = 'y' ]; then
-  sudo bash "${0}" install_nodejs
-elif [ "${input_val}" = 'uninstall' ]; then
-  sudo bash "${0}" uninstall_nodejs
-fi
-
-if [ "$(which npm)" ]; then
-  echo ''
-  echo '================================================'
-  echo 'Do you want to install additional NPM packages ?'
-  echo "(will be installed in $(npm root -g))"
-  echo '================================================'
-  read -p '[y/n/uninstall]: ' input_val
-
-  if [ "${input_val}" = 'y' ]; then
-    sudo npm install \
-      yarn \
-      typescript @types/node \
-      nodemon \
-      prettier \
-      eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin \
-      react react-dom @types/react @types/react-dom eslint-plugin-react eslint-plugin-react-hooks \
-      jest jest-junit \
-      -g
-    sudo chown -R "${USER}" "${HOME}/.npm"
-    sudo chown -R "${USER}" "${HOME}/.config"
-  elif [ "${input_val}" = 'uninstall' ]; then
-    sudo npm uninstall \
-      yarn \
-      typescript @types/node \
-      nodemon \
-      prettier \
-      eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin \
-      react react-dom @types/react @types/react-dom eslint-plugin-react eslint-plugin-react-hooks \
-      jest jest-junit \
-      -g
-  fi
-fi
-
-echo ''
-echo '================================================'
-echo 'Do you want to install Deno ?'
-echo "(will be installed in ${PREFIX}/bin)"
-echo '================================================'
-read -p '[y/n/uninstall]: ' input_val
-
-if [ "${input_val}" = 'y' ]; then
-  sudo bash "${0}" install_deno
-elif [ "${input_val}" = 'uninstall' ]; then
-  sudo bash "${0}" uninstall_deno
 fi
