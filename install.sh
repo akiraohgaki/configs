@@ -1,10 +1,10 @@
 #!/bin/bash
 
-CURDIR="$(cd "$(dirname "${0}")" && pwd)"
+BASE_URL='https://raw.githubusercontent.com/akiraohgaki/configs/main'
 
 PREFIX='/usr/local'
 
-PROJECTS_DIR="${HOME}/Projects"
+TEMPLATES_DIR="${HOME}/Templates"
 
 #CONFIG_DIR=''
 FONTS_DIR=''
@@ -26,16 +26,13 @@ resolve_parent_dir() {
   fi
 }
 
-install_file() {
-  src_path="${1}"
-  dest_path="${2}"
-  file_mode=${3:-644}
+sudo_resolve_parent_dir() {
+  dest_path="${1}"
 
-  if [ -f "${src_path}" ]; then
-    resolve_parent_dir "${dest_path}"
-    install -m ${file_mode} "${src_path}" "${dest_path}"
+  parent_dir="$(dirname "${dest_path}")"
 
-    echo "Installed: ${dest_path}"
+  if [ ! -d "${parent_dir}" ]; then
+    sudo mkdir -p "${parent_dir}"
   fi
 }
 
@@ -51,6 +48,18 @@ install_file_url() {
   echo "Installed: ${dest_path}"
 }
 
+sudo_install_file_url() {
+  src_url="${1}"
+  dest_path="${2}"
+  file_mode=${3:-644}
+
+  sudo_resolve_parent_dir "${dest_path}"
+  sudo curl -fsSL "${src_url}" -o "${dest_path}"
+  sudo chmod ${file_mode} "${dest_path}"
+
+  echo "Installed: ${dest_path}"
+}
+
 uninstall_file() {
   dest_path="${1}"
 
@@ -61,54 +70,43 @@ uninstall_file() {
   fi
 }
 
-install_deno() {
-  curl -fsSL https://deno.land/x/install/install.sh | DENO_INSTALL="${PREFIX}" sh
-}
+sudo_uninstall_file() {
+  dest_path="${1}"
 
-uninstall_deno() {
-  uninstall_file "${PREFIX}/bin/deno"
-}
+  if [ -f "${dest_path}" ]; then
+    sudo rm "${dest_path}"
 
-install_nodejs() {
-  install_file_url https://raw.githubusercontent.com/tj/n/master/bin/n "${PREFIX}/bin/n" 755
-  n lts
+    echo "Uninstalled: ${dest_path}"
+  fi
 }
-
-uninstall_nodejs() {
-  n uninstall
-  rm -rf /usr/local/n
-  uninstall_file "${PREFIX}/bin/n"
-}
-
-if [ "${1}" ]; then
-  "${1}"
-  exit
-fi
 
 echo ''
 echo '================================================'
 echo 'Do you want to install Deno ?'
-echo "(will be installed in ${PREFIX}/bin)"
+echo "(will be installed in ${PREFIX})"
 echo '================================================'
 read -p '[y/n/uninstall]: ' input_val
 
 if [ "${input_val}" = 'y' ]; then
-  sudo bash "${0}" install_deno
+  curl -fsSL https://deno.land/x/install/install.sh | DENO_INSTALL="${PREFIX}" sudo sh
 elif [ "${input_val}" = 'uninstall' ]; then
-  sudo bash "${0}" uninstall_deno
+  sudo_uninstall_file "${PREFIX}/bin/deno"
 fi
 
 echo ''
 echo '================================================'
 echo 'Do you want to install Node.js with n ?'
-echo "(will be installed in ${PREFIX}/bin)"
+echo "(will be installed in ${PREFIX})"
 echo '================================================'
 read -p '[y/n/uninstall]: ' input_val
 
 if [ "${input_val}" = 'y' ]; then
-  sudo bash "${0}" install_nodejs
+  sudo_install_file_url https://raw.githubusercontent.com/tj/n/master/bin/n "${PREFIX}/bin/n" 755
+  sudo n lts
 elif [ "${input_val}" = 'uninstall' ]; then
-  sudo bash "${0}" uninstall_nodejs
+  sudo n uninstall
+  sudo rm -rf /usr/local/n
+  sudo_uninstall_file "${PREFIX}/bin/n"
 fi
 
 if [ "$(which npm)" ]; then
@@ -127,7 +125,7 @@ if [ "$(which npm)" ]; then
       prettier \
       eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin \
       react react-dom @types/react @types/react-dom eslint-plugin-react eslint-plugin-react-hooks \
-      jest jest-junit \
+      jest jest-junit jest-mock \
       -g
     sudo chown -R "${USER}" "${HOME}/.npm"
     sudo chown -R "${USER}" "${HOME}/.config"
@@ -139,7 +137,7 @@ if [ "$(which npm)" ]; then
       prettier \
       eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin \
       react react-dom @types/react @types/react-dom eslint-plugin-react eslint-plugin-react-hooks \
-      jest jest-junit \
+      jest jest-junit jest-mock \
       -g
   fi
 fi
@@ -152,12 +150,12 @@ echo '================================================'
 read -p '[y/n]: ' input_val
 
 if [ "${input_val}" = 'y' ]; then
-  ssh-keygen -t ed25519 -N '' -f "${CURDIR}/ssh/id_ed25519"
-  ssh-keygen -t rsa -N '' -f "${CURDIR}/ssh/id_rsa"
-  install_file "${CURDIR}/ssh/id_ed25519" "${HOME}/.ssh/id_ed25519" 600
-  install_file "${CURDIR}/ssh/id_ed25519.pub" "${HOME}/.ssh/id_ed25519.pub"
-  install_file "${CURDIR}/ssh/id_rsa" "${HOME}/.ssh/id_rsa" 600
-  install_file "${CURDIR}/ssh/id_rsa.pub" "${HOME}/.ssh/id_rsa.pub"
+  ssh-keygen -t ed25519 -N '' -f "${HOME}/.ssh/id_ed25519"
+  ssh-keygen -t rsa -N '' -f "${HOME}/.ssh/id_rsa"
+  chmod 600 "${HOME}/.ssh/id_ed25519"
+  chmod 600 "${HOME}/.ssh/id_ed25519.pub"
+  chmod 600 "${HOME}/.ssh/id_rsa"
+  chmod 600 "${HOME}/.ssh/id_rsa.pub"
   chmod 700 "${HOME}/.ssh"
 fi
 
@@ -169,7 +167,7 @@ echo '================================================'
 read -p '[y/n/uninstall]: ' input_val
 
 if [ "${input_val}" = 'y' ]; then
-  install_file "${CURDIR}/ssh/config" "${HOME}/.ssh/config"
+  install_file_url "${BASE_URL}/ssh/config" "${HOME}/.ssh/config"
   chmod 700 "${HOME}/.ssh"
 elif [ "${input_val}" = 'uninstall' ]; then
   uninstall_file "${HOME}/.ssh/config"
@@ -183,7 +181,7 @@ echo '================================================'
 read -p '[y/n/uninstall]: ' input_val
 
 if [ "${input_val}" = 'y' ]; then
-  install_file "${CURDIR}/zsh/.zshrc" "${HOME}/.zshrc"
+  install_file_url "${BASE_URL}/zsh/.zshrc" "${HOME}/.zshrc"
 elif [ "${input_val}" = 'uninstall' ]; then
   uninstall_file "${HOME}/.zshrc"
   uninstall_file "${HOME}/.zcompdump"
@@ -197,8 +195,8 @@ echo '================================================'
 read -p '[y/n/uninstall]: ' input_val
 
 if [ "${input_val}" = 'y' ]; then
-  install_file "${CURDIR}/git/.gitconfig" "${HOME}/.gitconfig"
-  install_file "${CURDIR}/git/.gitignore" "${HOME}/.gitignore"
+  install_file_url "${BASE_URL}/git/.gitconfig" "${HOME}/.gitconfig"
+  install_file_url "${BASE_URL}/git/.gitignore" "${HOME}/.gitignore"
 
   echo ''
   echo '================================================'
@@ -221,7 +219,7 @@ echo '================================================'
 read -p '[y/n/uninstall]: ' input_val
 
 if [ "${input_val}" = 'y' ]; then
-  install_file "${CURDIR}/vim/.vimrc" "${HOME}/.vimrc"
+  install_file_url "${BASE_URL}/vim/.vimrc" "${HOME}/.vimrc"
 elif [ "${input_val}" = 'uninstall' ]; then
   uninstall_file "${HOME}/.vimrc"
 fi
@@ -234,7 +232,7 @@ echo '================================================'
 read -p '[y/n/uninstall]: ' input_val
 
 if [ "${input_val}" = 'y' ]; then
-  install_file "${CURDIR}/editorconfig/.editorconfig" "${HOME}/.editorconfig"
+  install_file_url "${BASE_URL}/editorconfig/.editorconfig" "${HOME}/.editorconfig"
 elif [ "${input_val}" = 'uninstall' ]; then
   uninstall_file "${HOME}/.editorconfig"
 fi
@@ -247,14 +245,14 @@ echo '================================================'
 read -p '[y/n/uninstall]: ' input_val
 
 if [ "${input_val}" = 'y' ]; then
-  install_file "${CURDIR}/fonts/Cousine-Bold.ttf" "${FONTS_DIR}/Cousine-Bold.ttf"
-  install_file "${CURDIR}/fonts/Cousine-BoldItalic.ttf" "${FONTS_DIR}/Cousine-BoldItalic.ttf"
-  install_file "${CURDIR}/fonts/Cousine-Regular.ttf" "${FONTS_DIR}/Cousine-Regular.ttf"
-  install_file "${CURDIR}/fonts/Cousine-Italic.ttf" "${FONTS_DIR}/Cousine-Italic.ttf"
-  install_file "${CURDIR}/fonts/UbuntuMono-B.ttf" "${FONTS_DIR}/UbuntuMono-B.ttf"
-  install_file "${CURDIR}/fonts/UbuntuMono-BI.ttf" "${FONTS_DIR}/UbuntuMono-BI.ttf"
-  install_file "${CURDIR}/fonts/UbuntuMono-R.ttf" "${FONTS_DIR}/UbuntuMono-R.ttf"
-  install_file "${CURDIR}/fonts/UbuntuMono-RI.ttf" "${FONTS_DIR}/UbuntuMono-RI.ttf"
+  install_file_url "${BASE_URL}/fonts/Cousine-Bold.ttf" "${FONTS_DIR}/Cousine-Bold.ttf"
+  install_file_url "${BASE_URL}/fonts/Cousine-BoldItalic.ttf" "${FONTS_DIR}/Cousine-BoldItalic.ttf"
+  install_file_url "${BASE_URL}/fonts/Cousine-Regular.ttf" "${FONTS_DIR}/Cousine-Regular.ttf"
+  install_file_url "${BASE_URL}/fonts/Cousine-Italic.ttf" "${FONTS_DIR}/Cousine-Italic.ttf"
+  install_file_url "${BASE_URL}/fonts/UbuntuMono-B.ttf" "${FONTS_DIR}/UbuntuMono-B.ttf"
+  install_file_url "${BASE_URL}/fonts/UbuntuMono-BI.ttf" "${FONTS_DIR}/UbuntuMono-BI.ttf"
+  install_file_url "${BASE_URL}/fonts/UbuntuMono-R.ttf" "${FONTS_DIR}/UbuntuMono-R.ttf"
+  install_file_url "${BASE_URL}/fonts/UbuntuMono-RI.ttf" "${FONTS_DIR}/UbuntuMono-RI.ttf"
 elif [ "${input_val}" = 'uninstall' ]; then
   uninstall_file "${FONTS_DIR}/Cousine-Bold.ttf"
   uninstall_file "${FONTS_DIR}/Cousine-BoldItalic.ttf"
@@ -269,38 +267,38 @@ fi
 echo ''
 echo '================================================'
 echo 'Do you want to install config file for Prettier ?'
-echo "(will be installed in ${PROJECTS_DIR})"
+echo "(will be installed in ${TEMPLATES_DIR})"
 echo '================================================'
 read -p '[y/n/uninstall]: ' input_val
 
 if [ "${input_val}" = 'y' ]; then
-  install_file "${CURDIR}/prettier/.prettierrc.json" "${PROJECTS_DIR}/.prettierrc.json"
+  install_file_url "${BASE_URL}/prettier/.prettierrc.json" "${TEMPLATES_DIR}/.prettierrc.json"
 elif [ "${input_val}" = 'uninstall' ]; then
-  uninstall_file "${PROJECTS_DIR}/.prettierrc.json"
+  uninstall_file "${TEMPLATES_DIR}/.prettierrc.json"
 fi
 
 echo ''
 echo '================================================'
 echo 'Do you want to install config file for ESLint ?'
-echo "(will be installed in ${PROJECTS_DIR})"
+echo "(will be installed in ${TEMPLATES_DIR})"
 echo '================================================'
 read -p '[y/n/uninstall]: ' input_val
 
 if [ "${input_val}" = 'y' ]; then
-  install_file "${CURDIR}/eslint/.eslintrc.json" "${PROJECTS_DIR}/.eslintrc.json"
+  install_file_url "${BASE_URL}/eslint/.eslintrc.json" "${TEMPLATES_DIR}/.eslintrc.json"
 elif [ "${input_val}" = 'uninstall' ]; then
-  uninstall_file "${PROJECTS_DIR}/.eslintrc.json"
+  uninstall_file "${TEMPLATES_DIR}/.eslintrc.json"
 fi
 
 echo ''
 echo '================================================'
 echo 'Do you want to install config file for TypeScript ?'
-echo "(will be installed in ${PROJECTS_DIR})"
+echo "(will be installed in ${TEMPLATES_DIR})"
 echo '================================================'
 read -p '[y/n/uninstall]: ' input_val
 
 if [ "${input_val}" = 'y' ]; then
-  install_file "${CURDIR}/typescript/tsconfig.json" "${PROJECTS_DIR}/tsconfig.json"
+  install_file_url "${BASE_URL}/typescript/tsconfig.json" "${TEMPLATES_DIR}/tsconfig.json"
 elif [ "${input_val}" = 'uninstall' ]; then
-  uninstall_file "${PROJECTS_DIR}/tsconfig.json"
+  uninstall_file "${TEMPLATES_DIR}/tsconfig.json"
 fi
