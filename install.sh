@@ -88,7 +88,7 @@ echo '================================================'
 read -p '[y/n/uninstall]: ' input_val
 
 if [ "${input_val}" = 'y' ]; then
-  curl -fsSL https://deno.land/x/install/install.sh | DENO_INSTALL="${PREFIX}" sudo sh
+  curl -fsSL https://deno.land/x/install/install.sh | sudo DENO_INSTALL="${PREFIX}" sh
 elif [ "${input_val}" = 'uninstall' ]; then
   sudo_uninstall_file "${PREFIX}/bin/deno"
 fi
