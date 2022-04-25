@@ -1,0 +1,69 @@
+{
+  // Editor
+  "editor.fontFamily": "Cousine, 'Ubuntu Mono', monospace",
+  "editor.fontSize": 14,
+  "editor.guides.indentation": false,
+  "editor.minimap.enabled": false,
+  "editor.formatOnSave": true,
+  // Diff
+  "diffEditor.renderSideBySide": false,
+  "diffEditor.ignoreTrimWhitespace": false,
+  // Workbench
+  "workbench.iconTheme": "vs-minimal",
+  "workbench.colorTheme": "GitHub Dark Dimmed",
+  // Window
+  "window.restoreWindows": "none",
+  "window.titleBarStyle": "custom",
+  // SCM
+  "scm.defaultViewMode": "tree",
+  // Telemetry
+  "telemetry.telemetryLevel": "off",
+  // Git
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  // Prettier
+  "prettier.printWidth": 120,
+  "prettier.singleQuote": true,
+  "prettier.quoteProps": "preserve",
+  // Language specific settings
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[yaml]": {
+    "editor.formatOnSave": false
+  },
+  "[dockercompose]": {
+    "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+  },
+  "[dockerfile]": {
+    "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+  },
+  // Settings Sync
+  "settingsSync.ignoredSettings": [
+    "hediet.vscode-drawio.local-storage"
+  ]
+}
