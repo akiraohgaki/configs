@@ -53,6 +53,7 @@ nmap <C-p> <Plug>AirlineSelectPrevTab
 nmap <C-n> <Plug>AirlineSelectNextTab
 
 " Files
+set encoding=utf-8
 set fenc=utf-8
 set nobackup
 set noswapfile
