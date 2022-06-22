@@ -2,7 +2,7 @@
 
 CONFIGS_BASE_URL='https://raw.githubusercontent.com/akiraohgaki/configs/main'
 
-PREFIX='/usr/local'
+INSTALL_PREFIX='/usr/local'
 
 #CONFIG_DIR=''
 FONTS_DIR=''
@@ -81,30 +81,30 @@ sudo_uninstall_file() {
 echo ''
 echo '================================================'
 echo 'Do you want to install Deno ?'
-echo "(will be installed in ${PREFIX})"
+echo "(will be installed in ${INSTALL_PREFIX})"
 echo '================================================'
 read -p '[y/n/uninstall]: ' input_val
 
 if [ "${input_val}" = 'y' ]; then
-  curl -fsSL https://deno.land/x/install/install.sh | sudo DENO_INSTALL="${PREFIX}" sh
+  curl -fsSL https://deno.land/x/install/install.sh | sudo DENO_INSTALL="${INSTALL_PREFIX}" sh
 elif [ "${input_val}" = 'uninstall' ]; then
-  sudo_uninstall_file "${PREFIX}/bin/deno"
+  sudo_uninstall_file "${INSTALL_PREFIX}/bin/deno"
 fi
 
 echo ''
 echo '================================================'
 echo 'Do you want to install Node.js with n ?'
-echo "(will be installed in ${PREFIX})"
+echo "(will be installed in ${INSTALL_PREFIX})"
 echo '================================================'
 read -p '[y/n/uninstall]: ' input_val
 
 if [ "${input_val}" = 'y' ]; then
-  sudo_install_file_url https://raw.githubusercontent.com/tj/n/master/bin/n "${PREFIX}/bin/n" 755
+  sudo_install_file_url https://raw.githubusercontent.com/tj/n/master/bin/n "${INSTALL_PREFIX}/bin/n" 755
   sudo n lts
 elif [ "${input_val}" = 'uninstall' ]; then
   sudo n uninstall
   sudo rm -rf /usr/local/n
-  sudo_uninstall_file "${PREFIX}/bin/n"
+  sudo_uninstall_file "${INSTALL_PREFIX}/bin/n"
 fi
 
 echo ''
