@@ -24,16 +24,6 @@ resolve_parent_dir() {
   fi
 }
 
-sudo_resolve_parent_dir() {
-  dest_path="${1}"
-
-  parent_dir="$(dirname "${dest_path}")"
-
-  if [ ! -d "${parent_dir}" ]; then
-    sudo mkdir -p "${parent_dir}"
-  fi
-}
-
 install_file_url() {
   src_url="${1}"
   dest_path="${2}"
@@ -42,18 +32,6 @@ install_file_url() {
   resolve_parent_dir "${dest_path}"
   curl -fsSL "${src_url}" -o "${dest_path}"
   chmod ${file_mode} "${dest_path}"
-
-  echo "Installed: ${dest_path}"
-}
-
-sudo_install_file_url() {
-  src_url="${1}"
-  dest_path="${2}"
-  file_mode=${3:-644}
-
-  sudo_resolve_parent_dir "${dest_path}"
-  sudo curl -fsSL "${src_url}" -o "${dest_path}"
-  sudo chmod ${file_mode} "${dest_path}"
 
   echo "Installed: ${dest_path}"
 }
@@ -67,45 +45,6 @@ uninstall_file() {
     echo "Uninstalled: ${dest_path}"
   fi
 }
-
-sudo_uninstall_file() {
-  dest_path="${1}"
-
-  if [ -f "${dest_path}" ]; then
-    sudo rm "${dest_path}"
-
-    echo "Uninstalled: ${dest_path}"
-  fi
-}
-
-echo ''
-echo '================================================'
-echo 'Do you want to install Deno ?'
-echo "(will be installed in ${INSTALL_PREFIX})"
-echo '================================================'
-read -p '[y/n/uninstall]: ' input_val
-
-if [ "${input_val}" = 'y' ]; then
-  curl -fsSL https://deno.land/x/install/install.sh | sudo DENO_INSTALL="${INSTALL_PREFIX}" sh
-elif [ "${input_val}" = 'uninstall' ]; then
-  sudo_uninstall_file "${INSTALL_PREFIX}/bin/deno"
-fi
-
-echo ''
-echo '================================================'
-echo 'Do you want to install Node.js with n ?'
-echo "(will be installed in ${INSTALL_PREFIX})"
-echo '================================================'
-read -p '[y/n/uninstall]: ' input_val
-
-if [ "${input_val}" = 'y' ]; then
-  sudo_install_file_url https://raw.githubusercontent.com/tj/n/master/bin/n "${INSTALL_PREFIX}/bin/n" 755
-  sudo n lts
-elif [ "${input_val}" = 'uninstall' ]; then
-  sudo n uninstall
-  sudo rm -rf /usr/local/n
-  sudo_uninstall_file "${INSTALL_PREFIX}/bin/n"
-fi
 
 echo ''
 echo '================================================'
