@@ -2,8 +2,6 @@
 
 CONFIGS_BASE_URL='https://raw.githubusercontent.com/akiraohgaki/configs/main'
 
-INSTALL_PREFIX='/usr/local'
-
 #CONFIG_DIR=''
 FONTS_DIR=''
 if [ "$(echo ${OSTYPE} | grep 'linux')" ]; then
@@ -14,22 +12,16 @@ elif [ "$(echo ${OSTYPE} | grep 'darwin')" ]; then
   FONTS_DIR="${HOME}/Library/Fonts"
 fi
 
-resolve_parent_dir() {
-  dest_path="${1}"
-
-  parent_dir="$(dirname "${dest_path}")"
-
-  if [ ! -d "${parent_dir}" ]; then
-    mkdir -p "${parent_dir}"
-  fi
-}
-
-install_file_url() {
+install_file() {
   src_url="${1}"
   dest_path="${2}"
   file_mode=${3:-644}
 
-  resolve_parent_dir "${dest_path}"
+  parent_dir="$(dirname "${dest_path}")"
+  if [ ! -d "${parent_dir}" ]; then
+    mkdir -p "${parent_dir}"
+  fi
+
   curl -fsSL "${src_url}" -o "${dest_path}"
   chmod ${file_mode} "${dest_path}"
 
@@ -49,24 +41,27 @@ uninstall_file() {
 echo ''
 echo '================================================'
 echo 'Do you want to generate new SSH key ?'
-echo "(will be installed in ${HOME}/.ssh)"
+echo "${HOME}/.ssh/id_ed25519"
+echo "${HOME}/.ssh/id_rsa"
 echo '================================================'
 read -p '[y/n]: ' input_val
 
 if [ "${input_val}" = 'y' ]; then
   ssh-keygen -t ed25519 -N '' -f "${HOME}/.ssh/id_ed25519"
   ssh-keygen -t rsa -N '' -f "${HOME}/.ssh/id_rsa"
+  chmod 700 "${HOME}/.ssh"
 fi
 
 echo ''
 echo '================================================'
 echo 'Do you want to install config file for SSH ?'
-echo "(will be installed in ${HOME}/.ssh)"
+echo "${HOME}/.ssh/config"
 echo '================================================'
 read -p '[y/n/uninstall]: ' input_val
 
 if [ "${input_val}" = 'y' ]; then
-  install_file_url "${CONFIGS_BASE_URL}/ssh/config" "${HOME}/.ssh/config"
+  install_file "${CONFIGS_BASE_URL}/ssh/config" "${HOME}/.ssh/config"
+  chmod 700 "${HOME}/.ssh"
 elif [ "${input_val}" = 'uninstall' ]; then
   uninstall_file "${HOME}/.ssh/config"
 fi
@@ -74,12 +69,12 @@ fi
 echo ''
 echo '================================================'
 echo 'Do you want to install config file for ZSH ?'
-echo "(will be installed in ${HOME})"
+echo "${HOME}/.zshrc"
 echo '================================================'
 read -p '[y/n/uninstall]: ' input_val
 
 if [ "${input_val}" = 'y' ]; then
-  install_file_url "${CONFIGS_BASE_URL}/zsh/.zshrc" "${HOME}/.zshrc"
+  install_file "${CONFIGS_BASE_URL}/zsh/.zshrc" "${HOME}/.zshrc"
 elif [ "${input_val}" = 'uninstall' ]; then
   uninstall_file "${HOME}/.zshrc"
   uninstall_file "${HOME}/.zcompdump"
@@ -88,22 +83,14 @@ fi
 echo ''
 echo '================================================'
 echo 'Do you want to install config file for Git ?'
-echo "(will be installed in ${HOME})"
+echo "${HOME}/.gitconfig"
+echo "${HOME}/.gitignore"
 echo '================================================'
 read -p '[y/n/uninstall]: ' input_val
 
 if [ "${input_val}" = 'y' ]; then
-  install_file_url "${CONFIGS_BASE_URL}/git/.gitconfig" "${HOME}/.gitconfig"
-  install_file_url "${CONFIGS_BASE_URL}/git/.gitignore" "${HOME}/.gitignore"
-
-  echo ''
-  echo '================================================'
-  echo 'Enter your name and email for Git commits'
-  echo '================================================'
-  read -p 'Your Name: ' input_val
-  git config --global user.name "${input_val}"
-  read -p 'Your Email: ' input_val
-  git config --global user.email "${input_val}"
+  install_file "${CONFIGS_BASE_URL}/git/.gitconfig" "${HOME}/.gitconfig"
+  install_file "${CONFIGS_BASE_URL}/git/.gitignore" "${HOME}/.gitignore"
 elif [ "${input_val}" = 'uninstall' ]; then
   uninstall_file "${HOME}/.gitconfig"
   uninstall_file "${HOME}/.gitignore"
@@ -112,12 +99,12 @@ fi
 echo ''
 echo '================================================'
 echo 'Do you want to install config file for Vim ?'
-echo "(will be installed in ${HOME})"
+echo "${HOME}/.vimrc"
 echo '================================================'
 read -p '[y/n/uninstall]: ' input_val
 
 if [ "${input_val}" = 'y' ]; then
-  install_file_url "${CONFIGS_BASE_URL}/vim/.vimrc" "${HOME}/.vimrc"
+  install_file "${CONFIGS_BASE_URL}/vim/.vimrc" "${HOME}/.vimrc"
 elif [ "${input_val}" = 'uninstall' ]; then
   uninstall_file "${HOME}/.vimrc"
 fi
@@ -125,12 +112,12 @@ fi
 echo ''
 echo '================================================'
 echo 'Do you want to install config file for EditorConfig ?'
-echo "(will be installed in ${HOME})"
+echo "${HOME}/.editorconfig"
 echo '================================================'
 read -p '[y/n/uninstall]: ' input_val
 
 if [ "${input_val}" = 'y' ]; then
-  install_file_url "${CONFIGS_BASE_URL}/editorconfig/.editorconfig" "${HOME}/.editorconfig"
+  install_file "${CONFIGS_BASE_URL}/editorconfig/.editorconfig" "${HOME}/.editorconfig"
 elif [ "${input_val}" = 'uninstall' ]; then
   uninstall_file "${HOME}/.editorconfig"
 fi
@@ -138,19 +125,26 @@ fi
 echo ''
 echo '================================================'
 echo 'Do you want to install additional fonts ?'
-echo "(will be installed in ${FONTS_DIR})"
+echo "${FONTS_DIR}/Cousine-Bold.ttf"
+echo "${FONTS_DIR}/Cousine-BoldItalic.ttf"
+echo "${FONTS_DIR}/Cousine-Regular.ttf"
+echo "${FONTS_DIR}/Cousine-Italic.ttf"
+echo "${FONTS_DIR}/UbuntuMono-B.ttf"
+echo "${FONTS_DIR}/UbuntuMono-BI.ttf"
+echo "${FONTS_DIR}/UbuntuMono-R.ttf"
+echo "${FONTS_DIR}/UbuntuMono-RI.ttf"
 echo '================================================'
 read -p '[y/n/uninstall]: ' input_val
 
 if [ "${input_val}" = 'y' ]; then
-  install_file_url "${CONFIGS_BASE_URL}/fonts/Cousine-Bold.ttf" "${FONTS_DIR}/Cousine-Bold.ttf"
-  install_file_url "${CONFIGS_BASE_URL}/fonts/Cousine-BoldItalic.ttf" "${FONTS_DIR}/Cousine-BoldItalic.ttf"
-  install_file_url "${CONFIGS_BASE_URL}/fonts/Cousine-Regular.ttf" "${FONTS_DIR}/Cousine-Regular.ttf"
-  install_file_url "${CONFIGS_BASE_URL}/fonts/Cousine-Italic.ttf" "${FONTS_DIR}/Cousine-Italic.ttf"
-  install_file_url "${CONFIGS_BASE_URL}/fonts/UbuntuMono-B.ttf" "${FONTS_DIR}/UbuntuMono-B.ttf"
-  install_file_url "${CONFIGS_BASE_URL}/fonts/UbuntuMono-BI.ttf" "${FONTS_DIR}/UbuntuMono-BI.ttf"
-  install_file_url "${CONFIGS_BASE_URL}/fonts/UbuntuMono-R.ttf" "${FONTS_DIR}/UbuntuMono-R.ttf"
-  install_file_url "${CONFIGS_BASE_URL}/fonts/UbuntuMono-RI.ttf" "${FONTS_DIR}/UbuntuMono-RI.ttf"
+  install_file "${CONFIGS_BASE_URL}/fonts/Cousine-Bold.ttf" "${FONTS_DIR}/Cousine-Bold.ttf"
+  install_file "${CONFIGS_BASE_URL}/fonts/Cousine-BoldItalic.ttf" "${FONTS_DIR}/Cousine-BoldItalic.ttf"
+  install_file "${CONFIGS_BASE_URL}/fonts/Cousine-Regular.ttf" "${FONTS_DIR}/Cousine-Regular.ttf"
+  install_file "${CONFIGS_BASE_URL}/fonts/Cousine-Italic.ttf" "${FONTS_DIR}/Cousine-Italic.ttf"
+  install_file "${CONFIGS_BASE_URL}/fonts/UbuntuMono-B.ttf" "${FONTS_DIR}/UbuntuMono-B.ttf"
+  install_file "${CONFIGS_BASE_URL}/fonts/UbuntuMono-BI.ttf" "${FONTS_DIR}/UbuntuMono-BI.ttf"
+  install_file "${CONFIGS_BASE_URL}/fonts/UbuntuMono-R.ttf" "${FONTS_DIR}/UbuntuMono-R.ttf"
+  install_file "${CONFIGS_BASE_URL}/fonts/UbuntuMono-RI.ttf" "${FONTS_DIR}/UbuntuMono-RI.ttf"
 elif [ "${input_val}" = 'uninstall' ]; then
   uninstall_file "${FONTS_DIR}/Cousine-Bold.ttf"
   uninstall_file "${FONTS_DIR}/Cousine-BoldItalic.ttf"
