@@ -1,7 +1,13 @@
-export PATH=${HOME}/.local/bin:${HOME}/bin:${PATH}
+if [[ "${PATH}" = *"${HOME}/bin"* ]]; then
+  export PATH="${HOME}/bin:${PATH}"
+fi
+
+if [[ "${PATH}" = *"${HOME}/.local/bin"* ]]; then
+  export PATH="${HOME}/.local/bin:${PATH}"
+fi
 
 export LS_COLORS='di=36;40:ln=35;40:so=32;40:pi=33;40:ex=31;40:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;46'
-export LSCOLORS=gxfxcxdxbxegedabagacag
+export LSCOLORS='gxfxcxdxbxegedabagacag'
 
 autoload -Uz compinit && compinit
 autoload -Uz colors && colors
@@ -14,7 +20,7 @@ setopt hist_ignore_all_dups
 setopt hist_ignore_space
 setopt hist_reduce_blanks
 
-HISTFILE=${HOME}/.zsh_history
+HISTFILE="${HOME}/.zsh_history"
 HISTSIZE=100000
 SAVEHIST=100000
 
@@ -27,8 +33,8 @@ zstyle ':completion:*:default' menu select=1
 zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' '+m:{A-Z}={a-z}'
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
-if [[ ${OSTYPE} = 'linux'* ]]; then
+if [[ "${OSTYPE}" = 'linux'* ]]; then
   alias ls='ls -F --color'
-elif [[ ${OSTYPE} = 'darwin'* ]]; then
+elif [[ "${OSTYPE}" = 'darwin'* ]]; then
   alias ls='ls -F -G'
 fi
