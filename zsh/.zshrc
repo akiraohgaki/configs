@@ -33,8 +33,8 @@ zstyle ':completion:*:default' menu select=1
 zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' '+m:{A-Z}={a-z}'
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
-if [[ "${OSTYPE}" = 'linux'* ]]; then
+if [ "$(echo ${OSTYPE} | grep 'linux')" ]; then
   alias ls='ls -F --color'
-elif [[ "${OSTYPE}" = 'darwin'* ]]; then
+elif [ "$(echo ${OSTYPE} | grep 'darwin')" ]; then
   alias ls='ls -F -G'
 fi
