@@ -1,4 +1,6 @@
 # Use ZSH if interactively
-case $- in
-  *i*) exec /bin/zsh;;
-esac
+if [ -f /bin/zsh ]; then
+  case $- in
+    *i*) exec /bin/zsh;;
+  esac
+fi
