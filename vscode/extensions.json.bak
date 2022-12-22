@@ -1,0 +1,24 @@
+{
+  "recommendations": [
+    "develiteio.api-blueprint-viewer",
+    "vncz.vscode-apielements",
+    "asciidoctor.asciidoctor-vscode",
+    "ms-vscode.cpptools",
+    "ms-vscode.cmake-tools",
+    "denoland.vscode-deno",
+    "ms-azuretools.vscode-docker",
+    "hediet.vscode-drawio",
+    "editorconfig.editorconfig",
+    "dbaeumer.vscode-eslint",
+    "mhutchie.git-graph",
+    "github.remotehub",
+    "github.github-vscode-theme",
+    "bierner.lit-html",
+    "ms-vsliveshare.vsliveshare",
+    "esbenp.prettier-vscode",
+    "ms-vscode-remote.vscode-remote-extensionpack",
+    "humao.rest-client",
+    "foxundermoon.shell-format",
+    "adpyke.vscode-sql-formatter"
+  ]
+}

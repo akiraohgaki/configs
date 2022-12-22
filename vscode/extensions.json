@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    "denoland.vscode-deno",
+    "editorconfig.editorconfig",
+    "dbaeumer.vscode-eslint",
+    "mhutchie.git-graph",
+    "github.github-vscode-theme",
+    "eamodio.gitlens",
+    "ritwickdey.liveserver",
+    "esbenp.prettier-vscode",
+    "foxundermoon.shell-format"
+  ]
+}

@@ -1,0 +1,32 @@
+# VCS
+.git
+.hg
+.bzr
+.svn
+
+# Compile
+*.[oa]
+*.so
+*.so.[0-9]*
+*.l[oa]
+*.dylib
+*.py[cod]
+*.moc
+
+# Backup
+*.bak
+*.orig
+*.rej
+*.sw[pon]
+*~
+\#*#
+.#*
+
+# macOS
+.DS_Store
+._*
+
+# Windows
+[Dd]esktop.ini
+Thumbs.db
+ehthumbs.db

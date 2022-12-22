@@ -1,0 +1,26 @@
+{
+  // Editor
+  "editor.fontFamily": "Cousine, 'Ubuntu Mono', 'Noto Sans Mono', Menlo, Consolas, monospace",
+  "editor.fontSize": 14,
+  "editor.guides.indentation": false,
+  "editor.inlayHints.enabled": "offUnlessPressed",
+  "editor.minimap.enabled": false,
+  "editor.formatOnSave": true,
+  // Diff
+  "diffEditor.renderSideBySide": false,
+  "diffEditor.ignoreTrimWhitespace": false,
+  // Workbench
+  "workbench.colorTheme": "Default Dark+",
+  "workbench.iconTheme": "vs-minimal",
+  // SCM
+  "scm.defaultViewMode": "tree",
+  // Git
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  // Live Server
+  "liveServer.settings.donotShowInfoMsg": true,
+  "liveServer.settings.donotVerifyTags": true,
+  "liveServer.settings.file": "index.html",
+  "liveServer.settings.host": "localhost",
+  "liveServer.settings.port": 8080
+}
