@@ -1,6 +1,6 @@
 ServerAliveInterval 60
 
 # Workaround for Azure DevOps that using deprecated RSA/SHA1
-Host ssh.dev.azure.com
-  HostkeyAlgorithms +ssh-rsa
-  PubkeyAcceptedAlgorithms +ssh-rsa
+#Host ssh.dev.azure.com
+#  HostkeyAlgorithms +ssh-rsa
+#  PubkeyAcceptedAlgorithms +ssh-rsa
