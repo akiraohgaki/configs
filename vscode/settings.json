@@ -10,8 +10,11 @@
   "diffEditor.renderSideBySide": false,
   "diffEditor.ignoreTrimWhitespace": false,
   // Workbench
-  "workbench.colorTheme": "Default Dark+",
+  "workbench.colorTheme": "GitHub Dark",
   "workbench.iconTheme": "vs-minimal",
+  // Window
+  "window.titleBarStyle": "custom",
+  "window.restoreWindows": "none",
   // SCM
   "scm.defaultViewMode": "tree",
   // Git
