@@ -1,9 +1,9 @@
 ServerAliveInterval 60
 
-#Host vbox
-#  HostName localhost
-#  User vbox
-#  Port 2222
+#Host name
+#  HostName hostname
+#  User username
+#  Port 22
 #  IdentityFile ~/.ssh/id_ed25519
 
 # Workaround for Azure DevOps that using deprecated RSA/SHA1
