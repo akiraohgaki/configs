@@ -1,13 +1,17 @@
 {
   "recommendations": [
-    "denoland.vscode-deno",
-    "editorconfig.editorconfig",
-    "dbaeumer.vscode-eslint",
-    "mhutchie.git-graph",
     "github.github-vscode-theme",
+    "dracula-theme.theme-dracula",
+    "editorconfig.editorconfig",
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "denoland.vscode-deno",
+    "foxundermoon.shell-format",
+    "mhutchie.git-graph",
     "eamodio.gitlens",
     "ritwickdey.liveserver",
-    "esbenp.prettier-vscode",
-    "foxundermoon.shell-format"
+    "ms-vscode-remote.vscode-remote-extensionpack",
+    "ms-vscode.remote-server",
+    "ms-azuretools.vscode-docker"
   ]
 }
