@@ -10,7 +10,7 @@
   "diffEditor.renderSideBySide": false,
   "diffEditor.ignoreTrimWhitespace": false,
   // Workbench
-  "workbench.colorTheme": "GitHub Dark",
+  "workbench.colorTheme": "Default Dark+",
   "workbench.iconTheme": "vs-minimal",
   // Window
   "window.titleBarStyle": "custom",
