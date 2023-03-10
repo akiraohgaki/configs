@@ -1,15 +1,32 @@
 {
   "recommendations": [
-    "github.github-vscode-theme",
-    "dracula-theme.theme-dracula",
     "editorconfig.editorconfig",
     "esbenp.prettier-vscode",
-    "dbaeumer.vscode-eslint",
-    "denoland.vscode-deno",
     "foxundermoon.shell-format",
+    "ms-vscode.cpptools-extension-pack",
+    "vscjava.vscode-java-pack",
+    "ms-python.python",
+    "rust-lang.rust-analyzer",
+    "denoland.vscode-deno",
+    "dbaeumer.vscode-eslint",
+    "visualstudioexptteam.vscodeintellicode",
     "mhutchie.git-graph",
     "eamodio.gitlens",
+    "cweijan.vscode-database-client2",
+    "humao.rest-client",
     "ritwickdey.liveserver",
-    "ms-vscode-remote.vscode-remote-extensionpack"
+    "hediet.vscode-drawio",
+    "tyriar.luna-paint",
+    "asciidoctor.asciidoctor-vscode",
+    "develiteio.api-blueprint-viewer",
+    "vncz.vscode-apielements",
+    "ms-vscode-remote.vscode-remote-extensionpack",
+    "ms-vsliveshare.vsliveshare",
+    "github.codespaces",
+    "github.remotehub",
+    "github.vscode-pull-request-github",
+    "github.github-vscode-theme",
+    "zhuangtongfa.material-theme",
+    "dracula-theme.theme-dracula"
   ]
 }
