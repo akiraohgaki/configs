@@ -19,11 +19,5 @@
   "scm.defaultViewMode": "tree",
   // Git
   "git.autofetch": true,
-  "git.confirmSync": false,
-  // Live Server
-  "liveServer.settings.donotShowInfoMsg": true,
-  "liveServer.settings.donotVerifyTags": true,
-  "liveServer.settings.file": "index.html",
-  "liveServer.settings.host": "localhost",
-  "liveServer.settings.port": 8080
+  "git.confirmSync": false
 }
