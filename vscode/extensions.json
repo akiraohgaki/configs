@@ -23,7 +23,6 @@
     "github.remotehub",
     "github.vscode-pull-request-github",
     "github.github-vscode-theme",
-    "zhuangtongfa.material-theme",
-    "dracula-theme.theme-dracula"
+    "zhuangtongfa.material-theme"
   ]
 }
