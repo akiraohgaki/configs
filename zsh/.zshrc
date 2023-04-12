@@ -38,3 +38,7 @@ if [ "$(echo ${OSTYPE} | grep 'linux')" ]; then
 elif [ "$(echo ${OSTYPE} | grep 'darwin')" ]; then
   alias ls='ls -F -G'
 fi
+
+if [ -f "${HOME}/.localenv" ]; then
+  source "${HOME}/.localenv"
+fi

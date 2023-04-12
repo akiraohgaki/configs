@@ -1,0 +1,13 @@
+###############################
+
+if [ -f /bin/zsh ]; then
+  case $- in
+  *i*) exec /bin/zsh ;;
+  esac
+fi
+
+if [ -f "${HOME}/.localenv" ]; then
+  source "${HOME}/.localenv"
+fi
+
+###############################
