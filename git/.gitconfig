@@ -2,6 +2,9 @@
 name =
 email =
 
+[init]
+defaultBranch = main
+
 [core]
 excludesfile = ~/.gitignore
 editor = nano
