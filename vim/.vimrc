@@ -16,7 +16,7 @@ endfunction
 if filereadable($HOME . '/.vim/autoload/plug.vim')
   call InitPlug()
 else
-  call system('curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
+  call system('curl -fsSL -o ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
   echo 'vim-plug installed'
   call InitPlug()
   echo 'Please do :PlugInstall to install plugins'
