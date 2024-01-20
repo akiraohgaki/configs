@@ -5,8 +5,3 @@ ServerAliveInterval 60
 #  User username
 #  Port 22
 #  IdentityFile ~/.ssh/id_ed25519
-
-# Workaround for Azure DevOps that using deprecated RSA/SHA1
-#Host ssh.dev.azure.com
-#  HostkeyAlgorithms +ssh-rsa
-#  PubkeyAcceptedAlgorithms +ssh-rsa
