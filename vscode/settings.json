@@ -19,5 +19,7 @@
   "scm.defaultViewMode": "tree",
   // Git
   "git.autofetch": true,
-  "git.confirmSync": false
+  "git.confirmSync": false,
+  // Additionals
+  "----": "----"
 }
