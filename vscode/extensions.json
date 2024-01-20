@@ -17,6 +17,7 @@
     "asciidoctor.asciidoctor-vscode",
     "develiteio.api-blueprint-viewer",
     "vncz.vscode-apielements",
+    "ms-playwright.playwright",
     "humao.rest-client",
     "hediet.vscode-drawio",
     "ms-vscode-remote.vscode-remote-extensionpack",
