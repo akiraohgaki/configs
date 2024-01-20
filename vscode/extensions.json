@@ -24,6 +24,7 @@
     "ms-vsliveshare.vsliveshare",
     "amazonwebservices.aws-toolkit-vscode",
     "github.codespaces",
+    "github.vscode-github-actions",
     "github.remotehub",
     "github.vscode-pull-request-github",
     "github.github-vscode-theme",
