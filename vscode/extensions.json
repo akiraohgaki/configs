@@ -23,6 +23,7 @@
     "ms-vscode-remote.vscode-remote-extensionpack",
     "ms-vsliveshare.vsliveshare",
     "amazonwebservices.aws-toolkit-vscode",
+    "amazonwebservices.amazon-q-vscode",
     "github.codespaces",
     "github.vscode-github-actions",
     "github.remotehub",
