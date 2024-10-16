@@ -22,7 +22,7 @@ install_file() {
     mkdir -p "${parent_dir}"
   fi
 
-  curl -fsSL "${src_url}" -o "${dest_path}"
+  curl -fsSL -o "${dest_path}" "${src_url}"
   chmod ${file_mode} "${dest_path}"
 
   echo "Installed: ${dest_path}"
