@@ -1,25 +1,30 @@
 {
-  // Editor
+  "---- Files ----": "",
+  "files.insertFinalNewline": true,
+  "---- Text Editor ----": "",
   "editor.fontFamily": "Cousine, 'Ubuntu Mono', 'Noto Sans Mono', Menlo, Consolas, monospace",
-  "editor.fontSize": 14,
+  "editor.fontSize": 13,
   "editor.guides.indentation": false,
   "editor.inlayHints.enabled": "offUnlessPressed",
   "editor.minimap.enabled": false,
   "editor.formatOnSave": true,
-  // Diff
-  "diffEditor.renderSideBySide": false,
+  "---- Diff Editor ----": "",
   "diffEditor.ignoreTrimWhitespace": false,
-  // Workbench
+  "diffEditor.renderSideBySide": false,
+  "---- Workbench ----": "",
   "workbench.colorTheme": "Default Dark Modern",
   "workbench.iconTheme": "vs-minimal",
-  // Window
-  "window.titleBarStyle": "custom",
+  "---- Window ----": "",
   "window.restoreWindows": "none",
-  // SCM
+  "window.titleBarStyle": "custom",
+  "---- SCM ----": "",
   "scm.defaultViewMode": "tree",
-  // Git
+  "---- Git ----": "",
   "git.autofetch": true,
   "git.confirmSync": false,
-  // Additionals
-  "----": "----"
+  "---- Additionals ----": "",
+  "deno.enable": false,
+  "eslint.enable": false,
+  "prettier.enable": false,
+  "jest.enable": false
 }
