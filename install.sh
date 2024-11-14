@@ -125,33 +125,15 @@ fi
 echo ''
 echo '================================================'
 echo 'Do you want to install additional fonts ?'
-echo "${FONTS_DIR}/Cousine-Bold.ttf"
-echo "${FONTS_DIR}/Cousine-BoldItalic.ttf"
-echo "${FONTS_DIR}/Cousine-Regular.ttf"
-echo "${FONTS_DIR}/Cousine-Italic.ttf"
-echo "${FONTS_DIR}/UbuntuMono-B.ttf"
-echo "${FONTS_DIR}/UbuntuMono-BI.ttf"
-echo "${FONTS_DIR}/UbuntuMono-R.ttf"
-echo "${FONTS_DIR}/UbuntuMono-RI.ttf"
+echo "${FONTS_DIR}/JetBrainsMono-Italic-VariableFont_wght.ttf"
+echo "${FONTS_DIR}/JetBrainsMono-VariableFont_wght.ttf"
 echo '================================================'
 read -p '[y/n/uninstall]: ' input_val
 
 if [ "${input_val}" = 'y' ]; then
-  install_file "${CONFIGS_BASE_URL}/fonts/Cousine-Bold.ttf" "${FONTS_DIR}/Cousine-Bold.ttf"
-  install_file "${CONFIGS_BASE_URL}/fonts/Cousine-BoldItalic.ttf" "${FONTS_DIR}/Cousine-BoldItalic.ttf"
-  install_file "${CONFIGS_BASE_URL}/fonts/Cousine-Regular.ttf" "${FONTS_DIR}/Cousine-Regular.ttf"
-  install_file "${CONFIGS_BASE_URL}/fonts/Cousine-Italic.ttf" "${FONTS_DIR}/Cousine-Italic.ttf"
-  install_file "${CONFIGS_BASE_URL}/fonts/UbuntuMono-B.ttf" "${FONTS_DIR}/UbuntuMono-B.ttf"
-  install_file "${CONFIGS_BASE_URL}/fonts/UbuntuMono-BI.ttf" "${FONTS_DIR}/UbuntuMono-BI.ttf"
-  install_file "${CONFIGS_BASE_URL}/fonts/UbuntuMono-R.ttf" "${FONTS_DIR}/UbuntuMono-R.ttf"
-  install_file "${CONFIGS_BASE_URL}/fonts/UbuntuMono-RI.ttf" "${FONTS_DIR}/UbuntuMono-RI.ttf"
+  install_file "${CONFIGS_BASE_URL}/fonts/JetBrainsMono-Italic-VariableFont_wght.ttf" "${FONTS_DIR}/JetBrainsMono-Italic-VariableFont_wght.ttf"
+  install_file "${CONFIGS_BASE_URL}/fonts/JetBrainsMono-VariableFont_wght.ttf" "${FONTS_DIR}/JetBrainsMono-VariableFont_wght.ttf"
 elif [ "${input_val}" = 'uninstall' ]; then
-  uninstall_file "${FONTS_DIR}/Cousine-Bold.ttf"
-  uninstall_file "${FONTS_DIR}/Cousine-BoldItalic.ttf"
-  uninstall_file "${FONTS_DIR}/Cousine-Regular.ttf"
-  uninstall_file "${FONTS_DIR}/Cousine-Italic.ttf"
-  uninstall_file "${FONTS_DIR}/UbuntuMono-B.ttf"
-  uninstall_file "${FONTS_DIR}/UbuntuMono-BI.ttf"
-  uninstall_file "${FONTS_DIR}/UbuntuMono-R.ttf"
-  uninstall_file "${FONTS_DIR}/UbuntuMono-RI.ttf"
+  uninstall_file "${FONTS_DIR}/JetBrainsMono-Italic-VariableFont_wght.ttf"
+  uninstall_file "${FONTS_DIR}/JetBrainsMono-VariableFont_wght.ttf"
 fi
