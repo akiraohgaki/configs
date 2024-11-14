@@ -2,7 +2,7 @@
   "---- Files ----": "",
   "files.insertFinalNewline": true,
   "---- Text Editor ----": "",
-  "editor.fontFamily": "Cousine, 'Ubuntu Mono', 'Noto Sans Mono', Menlo, Consolas, monospace",
+  "editor.fontFamily": "'JetBrains Mono', 'Ubuntu Mono', 'Noto Sans Mono', Menlo, Consolas, monospace",
   "editor.fontSize": 13,
   "editor.guides.indentation": false,
   "editor.inlayHints.enabled": "offUnlessPressed",
