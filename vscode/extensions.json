@@ -24,6 +24,7 @@
     "amazonwebservices.aws-toolkit-vscode",
     "amazonwebservices.amazon-q-vscode",
     "github.codespaces",
+    "github.copilot",
     "github.vscode-github-actions",
     "github.remotehub",
     "github.vscode-pull-request-github",
