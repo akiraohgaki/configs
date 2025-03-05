@@ -11,6 +11,7 @@
     "dbaeumer.vscode-eslint",
     "visualstudioexptteam.vscodeintellicode",
     "runem.lit-plugin",
+    "mhutchie.git-graph",
     "eamodio.gitlens",
     "ms-vscode.live-server",
     "asciidoctor.asciidoctor-vscode",
