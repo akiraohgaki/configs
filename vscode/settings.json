@@ -3,7 +3,7 @@
   "files.insertFinalNewline": true,
   "---- Text Editor ----": "",
   "editor.fontFamily": "'JetBrains Mono', 'Ubuntu Mono', 'Noto Sans Mono', Menlo, Consolas, monospace",
-  "editor.fontSize": 13,
+  "editor.fontSize": 14,
   "editor.guides.indentation": false,
   "editor.inlayHints.enabled": "offUnlessPressed",
   "editor.minimap.enabled": false,
