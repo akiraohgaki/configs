@@ -11,6 +11,7 @@
   "---- Diff Editor ----": "",
   "diffEditor.ignoreTrimWhitespace": false,
   "diffEditor.renderSideBySide": false,
+  "diffEditor.codeLens": false,
   "---- Workbench ----": "",
   "workbench.layoutControl.enabled": true,
   "workbench.panel.showLabels": false,
