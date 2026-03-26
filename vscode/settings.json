@@ -11,10 +11,11 @@
   "---- Diff Editor ----": "",
   "diffEditor.ignoreTrimWhitespace": false,
   "diffEditor.renderSideBySide": false,
-  "diffEditor.codeLens": false,
+  "diffEditor.codeLens": true,
   "---- Workbench ----": "",
   "workbench.layoutControl.enabled": true,
   "workbench.panel.showLabels": false,
+  "workbench.secondarySideBar.showLabels": false,
   "workbench.colorTheme": "Default Light Modern",
   "workbench.iconTheme": "vs-minimal",
   "---- Window ----": "",
@@ -29,9 +30,5 @@
   "---- Git ----": "",
   "git.autofetch": true,
   "git.confirmSync": false,
-  "---- Additionals ----": "",
-  "deno.enable": false,
-  "eslint.enable": false,
-  "prettier.enable": false,
-  "jest.enable": false
+  "---- Additionals ----": ""
 }
